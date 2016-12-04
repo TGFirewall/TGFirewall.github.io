@@ -1,0 +1,7 @@
+Server: gjjline.bta.net.cn 
+Address: ['10.16.0.1', '202.106.0.20', '202.106.46.151'] 
+Date: 04Dec16 
+Time: 21:17:04 
+Query: 'google.com' 
+Rdata: 216.58.196.238
+

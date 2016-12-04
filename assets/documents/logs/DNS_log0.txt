@@ -1,0 +1,56 @@
+Server: gjjline.bta.net.cn 
+Address: ['10.16.0.1', '202.106.0.20', '202.106.46.151'] 
+Date: 04Dec16 
+Time: 21:10:10 
+Query: 'google.com' 
+Rdata: 216.58.221.238
+
+Server: gjjline.bta.net.cn 
+Address: ['10.16.0.1', '202.106.0.20', '202.106.46.151'] 
+Date: 04Dec16 
+Time: 21:10:10 
+Query: 'facebook.com' 
+Rdata: 31.13.78.35
+
+Server: gjjline.bta.net.cn 
+Address: ['10.16.0.1', '202.106.0.20', '202.106.46.151'] 
+Date: 04Dec16 
+Time: 21:10:10 
+Query: 'imgur.com' 
+Rdata: 151.101.40.193
+
+Server: gjjline.bta.net.cn 
+Address: ['10.16.0.1', '202.106.0.20', '202.106.46.151'] 
+Date: 04Dec16 
+Time: 21:10:26 
+Query: 'gmail.com' 
+Rdata: 216.58.221.229
+
+Server: gjjline.bta.net.cn 
+Address: ['10.16.0.1', '202.106.0.20', '202.106.46.151'] 
+Date: 04Dec16 
+Time: 21:10:26 
+Query: 'baidu.com' 
+Rdata: 123.125.114.144
+
+Server: gjjline.bta.net.cn 
+Address: ['10.16.0.1', '202.106.0.20', '202.106.46.151'] 
+Date: 04Dec16 
+Time: 21:10:26 
+Query: 'baidu.com' 
+Rdata: 111.13.101.208
+
+Server: gjjline.bta.net.cn 
+Address: ['10.16.0.1', '202.106.0.20', '202.106.46.151'] 
+Date: 04Dec16 
+Time: 21:10:26 
+Query: 'baidu.com' 
+Rdata: 220.181.57.217
+
+Server: gjjline.bta.net.cn 
+Address: ['10.16.0.1', '202.106.0.20', '202.106.46.151'] 
+Date: 04Dec16 
+Time: 21:10:26 
+Query: 'baidu.com' 
+Rdata: 180.149.132.47
+

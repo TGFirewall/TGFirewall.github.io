@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>The Great Firewall</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://TGFirewall.github.io/assets/stylesheets/w3.css">
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+	<ul class="w3-navbar w3-black w3-card-2 w3-left-align">
+		<li class="w3-hide-medium w3-hide-l w3-opennav w3-right">
+			<a class="w3-padding-medium" href="javascript:void(0)" onClick="myFunction()"
+title="Toggle Nav Menu"><i class="fa fa-bars"></i></a>
+		</li>
+		<li class="w3-hide-small"><a href="https://TGFirewall.gihub.io#" class="w3-padding-large">HOME</a></li>
+		<li class="w3-hide-small"><a href="https://TGFirewall.gihub.io#introduction" class="w3-padding-large">INTRO</a></li>
+		<li class="w3-hide-small"><a href="https://TGFirewall.gihub.io#related" class="w3-padding-large">READINGS</a></li>
+		<li class="w3-hide-small"><a href="https://TGFirewall.gihub.io#tech" class="w3-padding-large">METHODS</a></li>
+		<li class="w3-hide-small"><a href="https://TGFirewall.gihub.io#findings" class="w3-padding-large">FINDINGS</a></li>
+		<li class="w3-hide-small"><a href="https://TGFirewall.gihub.io#future" class="w3-padding-large">WHAT'S NEXT</a></li>
+	</ul>
+</div>
+
+<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:1000px" id="home">
+	<h2>RESEARCH METHODS</h2>
+	<p class="w3-justify">For this project, I used a combination of technical network analysis, interviews with Chinese citizens,
+and accessing Chinese websites from within the Chinese internet. I also conducted analysis using DNS response to test DNS poisoning,
+ TCP packet testing to detect TCP snooping, and monitoring Chinese social media for censorship evidence. I implemented this using Python
+to detect DNS responses, and was able to see the false IP addresses being sent from Chinese DNS servers. You can find the program below.</p>
+	<div class="w3-example w3-left-align">
+		<h3>Query.py</h3>
+		<div class="w3-code python w3-left-align">
+from datetime import datetime <br>
+from os.path import exists<br>
+import dns.resolver<br>
+import socket<br>
+<br>
+def make_log_file():<br>
+    #all this does is increment the log file name so I don't overwrite data<br>
+    counter = 0<br>
+    while(1):<br>
+        filename = "logs\DNS_log%d.txt" % counter<br>
+        if exists(filename)==True:<br>
+            counter = counter+1<br>
+        else:<br>
+            return filename<br>
+<br>
+<br>
+host = socket.gethostname()<br>
+IP = socket.gethostbyname(host)<br>
+<br>
+resolver = dns.resolver.Resolver()<br>
+<br>
+resolver.timeout = 5<br>
+<br>
+nameservers = 'gjjline.bta.net.cn'<br>
+<br>
+domains = [<br>
+    'google.com',<br>
+    'facebook.com',<br>
+    'imgur.com',<br>
+    'gmail.com',<br>
+    'baidu.com',<br>
+    'weibo.com'<br>
+]<br>
+<br>
+print "Opening log file..."<br>
+<br>
+logfile = open(make_log_file(), 'w')<br>
+print "Success."<br>
+<br>
+print "DNS query:"<br>
+for i in range(0,len(domains)):<br>
+    try: answers = resolver.query(domains[i], 'A',raise_on_no_answer=False)<br>
+    except: answers = ['timeout']<br>
+    for rdata in answers:<br>
+        print "Query: '%s' Response: %s" % (domains[i], rdata)<br>
+        date = datetime.now()<br>
+        logdata = "Server: %s \nAddress: %s \nDate: %s \nTime: %s \nQuery: '%s' \nRdata: %s"\<br>
+        % (nameservers, resolver.nameservers, date.strftime('%d%b%y'),<br>
+            date.strftime('%H:%M:%S'), domains[i], rdata)<br>
+        logfile.write(logdata)<br>
+        logfile.write("\n\n")<br>
+logfile.close()<br>
+		</div>
+
+
+
+</body>
+</html>
