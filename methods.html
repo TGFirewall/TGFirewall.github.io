@@ -3,30 +3,116 @@
 <title>The Great Firewall</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://TGFirewall.github.io/assets/stylesheets/w3.css">
-<body>
+
+<body >
 
 <!-- Navbar -->
 <div class="w3-top">
-	<ul class="w3-navbar w3-black w3-card-2 w3-left-align">
+
+	<ul class="w3-navbar w3-black w3-opacity-min w3-card-2 w3-left-align">
 		<li class="w3-hide-medium w3-hide-l w3-opennav w3-right">
 			<a class="w3-padding-medium" href="javascript:void(0)" onClick="myFunction()"
 title="Toggle Nav Menu"><i class="fa fa-bars"></i></a>
 		</li>
-		<li class="w3-hide-small"><a href="https://TGFirewall.github.io#" class="w3-padding-large">HOME</a></li>
-		<li class="w3-hide-small"><a href="https://TGFirewall.github.io#introduction" class="w3-padding-large">INTRO</a></li>
-		<li class="w3-hide-small"><a href="https://TGFirewall.github.io#related" class="w3-padding-large">READINGS</a></li>
-		<li class="w3-hide-small"><a href="https://TGFirewall.github.io#tech" class="w3-padding-large">METHODS</a></li>
-		<li class="w3-hide-small"><a href="https://TGFirewall.github.io#findings" class="w3-padding-large">FINDINGS</a></li>
-		<li class="w3-hide-small"><a href="https://TGFirewall.github.io#future" class="w3-padding-large">WHAT'S NEXT</a></li>
+		<li class="w3-hide-small"><a href="https://tgfirewall.github.io" class="w3-padding-large">HOME</a></li>
+		<li class="w3-hide-small"><a href="https://tgfirewall.github.io/#contents" class="w3-padding-large">TABLE OF CONTENTS</a></li>
+		<li class="w3-hide-small"><a href="https://tgfirewall.github.io/methods.html" class="w3-padding-large">METHODS & READINGS</a></li>
+		<li class="w3-hide-small"><a href="https://tgfirewall.github.io/findings.html" class="w3-padding-large">FINDINGS</a></li>
+		<li class="w3-hide-small"><a href="https://tgfirewall.github.io/future.html" class="w3-padding-large">WHAT'S NEXT</a></li>
+		<li class="w3-hide-small"><a href="https://tgfirewall.github.io/#contact" class="w3-padding-large">CONTACT</a></li>
 	</ul>
 </div>
 
-<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:1000px" id="home">
-	<h2>RESEARCH METHODS</h2>
-	<p class="w3-justify">For this project, I used a combination of technical network analysis, interviews with Chinese citizens,
-and accessing Chinese websites from within the Chinese internet. I also conducted analysis using DNS response to test DNS poisoning,
- TCP packet testing to detect TCP snooping, and monitoring Chinese social media for censorship evidence. I implemented this using Python
-to detect DNS responses, and was able to see the false IP addresses being sent from Chinese DNS servers. You can find the program below.</p>
+<!-- Header -->
+<div class="w3-container w3-content w3-center w3-padding-32" style="max-width:1000px" id="home">
+</div>
+<div class="w3-container w3-content w3-center w3-padding-16" style="max-width:1000px" id="home">
+	<h1 class="w3-wide w3-opacity-min">THE GREAT FIREWALL</h1>
+	<h6 class="w3-opacity w3-wide">THE CULTURAL IMPACT OF OPERATION GOLDEN SHIELD</h6>
+</div>
+
+<!-- Title  and Technical-->
+<div class="w3-container w3-content w3-center " style="max-width:1000px" id="home">
+	<h2>RESEARCH METHODOLOGY</h2>
+	<h4>TECHNICAL RESEARCH</h4>
+	<p>This project was interesting to research because of the myriad ways to collect information on the issue. I first wanted to attempt replicating the results of other researchers in the realm of network analysis and firewall implementation. The first task was an analysis of Domain Name Service corruption in the Chinese network. For this task I aimed to replicate the results of an Oxford University team in a 2016 paper that explored Domain Name Service poisoning inside the county. I could have accomplished this with the nslookup Windows tool, but I found using Python to be more intuitive for data collection, time-stamping, and documenting my results. This was a task that I could only do from within China without having prior knowledge of the Chinese DNS server addresses. I implemented the DNS scan process in Python, and documented the tendency of Chinese DNS servers to return multiple, often false or corrupted IPv4 and IPv6 addresses for popular domains such as Facebook or Gmail. This correlated with the research done in the Oxford study, and I actually found some of the same corrupted IP addresses that they did. You can browse the log files and see my source code and log files <a class=" w3-text-red" href="#dns">here</a>.
+	</p>
+	<p>Another frequent claim is that Chinese internet police frequently sniff traffic for keywords and other sensitive information, but due to the nature of the TCP protocol, it proved too difficult for me to detect whether the packets had been modified or not.
+	</p>
+	<p>
+	The third technical method employed was data mining of Chinese social media website weibo.com to detect manual censorship by Chinese authorities. One of the most common means of censorship, China’s internet police force still relies on manually examining posts for content deemed inappropriate. This was difficult because Weibo recently changed their API and developer key management when they released their own commercial data analytics service to make it more difficult to do manually (and for free). Consequently, a lot of the previous models and earlier research no longer worked, so I was restricted to other methods. Without registering, weibo.com operates rather like a normal western news or entertainment site, and uses a lot a scripting and web app frameworks that make normal URL data mining not very useful. Instead, I elected to simply open a weibo account and see if I could get information from a traditional user account. This method has worked for me in the past on Facebook, so I had high hopes.
+	</p>
+	<figure class="w3-container w3-margin-0 w3-padding-16 w3-black">
+		<img src="assets/pictures/weibo1.png" alt="Weibo Registration Page" width="100%">
+	</figure>
+	<figcaption class="w3-opacity-min">Weibo Registration Page. Notice the striking similarities to Facebook and Twitter with interest selections.</figcaption>
+	<figure class="w3-container w3-margin-0 w3-padding-16 w3-black">
+		<img src="assets/pictures/weibo2.png" alt="Weibo Home Page" width="100%">
+	</figure>
+	<figcaption class="w3-opacity-min">Weibo Home Page Layout</figcaption>
+	<p>This is the Weibo home page, which is essentially a feed structure quite similar to Facebook and Twitter. I did not bother spending too much time on the home page, since I read Chinese pretty slowly, and instead started looking through page source and the weibo developers page for solutions. Again, they really do not like you data-mining outside of their commercial data analytics service. User data is their most valuable commodity, it and advertising makes up all of Weibo’s income. Consequently, most of the developers page is devoted to journalists, bloggers, and app developers that want to incorporate the Weibo service into their webpages, personal blogs, and mobile apps. However, there was still the possibility of exploiting the login script from the front page.</p>
+	<figure class="w3-container w3-margin-0 w3-padding-16 w3-black">
+		<img src="assets/pictures/weibo3.png" alt="Weibo Login" width="100%">
+	</figure>
+	<figcaption class="w3-opacity-min">Weibo Automated Login Attempt. Note the captcha</figcaption>
+	<p>Unfortunately, the login included a captcha after one failed attempt. Also note that the entire site uses http, so nothing is encrypted. This reinforces the concept that nothing is private in China, promoting the principle of self-censorship, which is the most obvious cultural impact of censorship, and is in keeping with the Chinese cultural principle of avoiding and walking circles around problems rather than bringing up sensitive subjects.</p>
+	<p>
+	Fortunately I stumbled across some more recent exploits of the login system, and found Weibo’s login system, and the script parameters associated with it, which I then used to write a python program based off of a Chinese researcher’s <a href="https://github.com/yoyzhou/weibo_login/blob/master/weibo_login.py">work</a> in the same field. As of now, I have not gotten the program to work, but I will keep working on it in the future.
+	</p>
+</div>
+
+<!-- Cultural -->
+<div class="w3-container w3-content w3-center " style="max-width:1000px" id="cultural">
+	<h4>CULTURAL OBSERVATION</h4>
+	<p>My research methodology on the cultural side consisted mostly of observation and interview. I got the chance to speak informally with several Chinese people on the subject, and took notes and transcripts of some conversations. On the observation side, I simply lived the Chinese online life for a few months, and recorded my observations on discrepancies between Chinese and Western culture stemming from censorship of the internet. A lot of this content is very visual, and I made sure to take many screenshots of websites, TV ads, and other content to illustrate my observations. A full repository of this information is under the Findings tab, but I reference and embed content throughout the portfolio. One very interesting facet of this was the translation process, as Chinese netizens use homophones and homographs to escape keyword blocking. In addition to monitoring social media, I also researched the historical and political side as well, although I conducted most of those investigations on English language websites for the sake of time and accuracy. 
+	</p>
+</div>
+
+<!-- Readings -->
+<div class="w3-container w3-content w3-center w3-padding-32" style="max-width:1000px" id="readings">
+	<h2><a href="https://tgfirewall.github.io/assets/docs/readings.html">RELATED READINGS</a></h2>
+	<p class="w3-opacity-min">Here you can find journals, articles, and other research materials used.</p>
+	<ul class="w3-ul w3-hoverable w3-red w3-opacity">
+				<li class="w3-padding-8">
+					<span class="w3-large w3-center"><a href="https://censorbib.nymity.ch/pdf/Farnan2016a.pdf">DNS Poisoning   </a></span>
+					<p>A paper explaining some of the modern methods China uses to corrupt webpage requests.</p>
+				</li>
+				<li class="w3-padding-8">
+					<span class="w3-large w3-center"><a href="https://censorbib.nymity.ch/pdf/Marczak2015a.pdf">The Great Cannon    </a></span>
+					<p>A 2015 article discussing DDOS attacks on greatfire.org by Chinese censorship authorities.</p>
+				</li>
+				<li class="w3-padding-8">
+					<span class="w3-large w3-center"><a href="https://censorbib.nymity.ch/pdf/Ensafi2015a.pdf ">Packet Dropping   </a></span>
+					<p>Looking at the government's exploitation of TCP and UDP connections.</p>
+				</li>
+				<li class="w3-padding-8">
+					<span class="w3-large w3-center"><a href="https://censorbib.nymity.ch/pdf/King2014a.pdf">Social Media Censorship    </a></span>
+					<p>A 2014 paper detailing some of the more manual methods used to censor Chinese social media.    </p>
+				</li>
+				<li class="w3-padding-8">
+					<span class="w3-large w3-center"><a href="https://censorbib.nymity.ch/pdf/Clayton2006a.pdf">Dynamic Blocking of TOR     </a></span>
+					<p>How the Chinese government dynamically interrupts Onion router connections, disrupting the anonymizing network.</p>
+				</li>
+				<li class="w3-padding-8">
+					<span class="w3-large w3-center"><a href="https://censorbib.nymity.ch/pdf/King2012a.pdf">Word Choice and Blacklists     </a></span>
+					<p>Censorship content and more on homophones and homographs.</p>
+				</li>
+				<li class="w3-padding-8">
+					<span class="w3-large w3-center"><a href="https://censorbib.nymity.ch/pdf/Knockel2015a.pdf">Censorship Content</a></span>
+					<p>A fascinating analysis of exactly what the Chinese government silences on Chinese social media platforms, this paper makes
+the important distinction between government criticism and collective activism.</p>
+				</li>
+				<li class="w3-padding-8">
+					<span class="w3-large w3-center"><a href="http://chinalawtranslate.com/cybersecuritylaw/?lang=en">PRC 2016 Cybersecurity Law</a></span>
+					<p>This is an English translation of the recently passed Chinese cybersecurity law. <b><a href="https://www.hrw.org/news/2016/11/06/china-abusive-cybersecurity-law-set-be-passed">These are</a>  
+<a href="https://www.theguardian.com/world/2016/nov/07/chinas-new-cybersecurity-law-sparks-fresh-censorship-and-espionage-fears">some links</a></b> to
+ Western media coverage of the law. You can also see the law in Mandarin <b><a href="http://www.npc.gov.cn/npc/xinwen/2016-11/07/content_2001605.htm">here.</a></b></p>
+				</li>
+	</ul>
+</div>
+
+<!-- DNS Research -->
+<div class="w3-container w3-content w3-center w3-padding-16 w3-opacity-min" style="max-width:1000px" id="dns">
 	<div class="w3-example w3-left-align">
 		<h3>Query.py</h3>
 		<div class="w3-code python w3-left-align">
@@ -83,6 +169,96 @@ for i in range(0,len(domains)):<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logfile.write("\n\n")<br>
 logfile.close()<br>
 		</div>
+	</div>
+</div>
+<div class="w3-container w3-content w3-center w3-padding-8 w3-opacity-min" style="max-width:1000px">
+	<div class="w3-example w3-left-align">
+		<h3>Log file from 22 November</h3>
+		<div class="w3-code python w3-left-align">
+Server: gjjline.bta.net.cn<br>
+Address: 202.106.0.20<br>
+Date: 22NOV2016<br>
+Time: 19:32:57.58<br>
+Query: 'google.com'<br>
+Rdata: timeout<br>
+<br>
+Server: gjjline.bta.net.cn<br>
+Address: 202.106.0.20<br>
+Date: 22NOV2016<br>
+Time: 19:33:03.52<br>
+Query: 'google.com'<br>
+Rdata: 216.58.221.174<br>
+<br>
+Server: gjjline.bta.net.cn<br>
+Address: 202.106.0.20<br>
+Date: 22NOV2016<br>
+Time: 19:33:06.50<br>
+Query: 'facebook.com'<br>
+Rdata: timeout<br>
+<br>
+Server: gjjline.bta.net.cn<br>
+Address: 202.106.0.20<br>
+Date: 22NOV2016<br>
+Time: 19:33:12.11<br>
+Query: 'facebook.com'<br>
+Rdata: 8.7.198.45<br>
+<br>
+Server: gjjline.bta.net.cn<br>
+Address: 202.106.0.20<br>
+Date: 22NOV2016<br>
+Time: 19:33:25.12<br>
+Query: 'gmail.com'<br>
+Rdata: timeout<br>
+<br>
+Server: gjjline.bta.net.cn<br>
+Address: 202.106.0.20<br>
+Date: 22NOV2016<br>
+Time: 19:33:26.80<br>
+Query: 'gmail.com'<br>
+Rdata: 2404:6800:400a:804::2005, 216.58.197.5<br>
+<br>
+Server: gjjline.bta.net.cn<br>
+Address: 202.106.0.20<br>
+Date: 22NOV2016<br>
+Time: 19:33:28.24<br>
+Query: 'baidu.com'<br>
+Rdata: 111.13.101.208, 123.125.114.144, 180.149.132.47, 220.181.57.217<br>
+<br>
+Server: gjjline.bta.net.cn<br>
+Address: 202.106.0.20<br>
+Date: 22NOV2016<br>
+Time: 19:33:15.31<br>
+Query: 'weibo.com'<br>
+Rdata: 123.125.104.197<br>
+
+		</div>
+	</div>
+</div>
+<div class="w3-container w3-content w3-center w3-padding-8 w3-opacity-min" style="max-width:1000px">
+	<h3>Links to all log files</h3>
+		<span><a href="assets/documents/logs/DNS_log.txt">Log 1 </a>
+		</span>
+		<span><a href="assets/documets/logs/DNS_log0.txt">Log 2 </a>
+		</span>
+		<span><a href="assets/documets/logs/DNS_log1.txt">Log 3 </a>
+		</span>
+		<span><a href="assets/documets/logs/DNS_log2.txt">Log 4 </a>
+		</span>
+		<span><a href="assets/documets/logs/DNS_log3.txt">Log 5 </a>
+		</span>
+		<span><a href="assets/documets/logs/DNS_log4.txt">Log 6 </a>
+		</span>
+		<span><a href="assets/documets/logs/DNS_log5.txt">Log 7 </a>
+		</span>
+		<span><a href="assets/documets/logs/DNS_log6.txt">Log 8 </a>
+		</span>
+		<span><a href="assets/documets/logs/DNS_log7.txt">Log 9 </a>
+		</span>
+		<span><a href="assets/documets/logs/DNS_log8.txt">Log 10 </a>
+		</span>
+		<span><a href="assets/documets/logs/DNS_log9.txt">Log 11 </a>
+		</span>
+	</div>
 
 
 
